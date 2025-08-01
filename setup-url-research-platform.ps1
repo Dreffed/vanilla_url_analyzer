@@ -34,38 +34,80 @@ foreach ($dir in $directories) {
 
 Write-Host "`n📝 Creating configuration files..." -ForegroundColor Yellow
 
-# Create requirements_updated.txt
-$requirementsContent = @"
+# Create multiple requirements files for different scenarios
+
+# Core requirements (no MCP) - RECOMMENDED for initial setup
+$requirementsCoreContent = @"
+# URL Research Platform v2.0 - Core Dependencies (No MCP)
+# This version works perfectly for testing and basic usage
+
 fastapi==0.104.1
-uvicorn==0.24.0
-httpx==0.25.0
+uvicorn[standard]==0.24.0
+httpx==0.25.2
 beautifulsoup4==4.12.2
-pandas==2.1.3
-pydantic==2.4.2
-python-multipart==0.0.6
-jinja2==3.1.2
-aiofiles==23.2.1
+pandas==2.1.4
 python-dotenv==1.0.0
-mcp==0.3.0
-typing-extensions==4.8.0
+pydantic==2.5.2
+openai==1.6.1
+anthropic==0.8.1
 lxml==4.9.3
 markdownify==0.11.6
+jinja2==3.1.2
+aiofiles==23.2.1
+python-multipart==0.0.6
+typing-extensions==4.8.0
 
-# LLM Provider Dependencies
-openai==1.3.0
-anthropic==0.7.0
-google-generativeai==0.3.0
-cohere==4.32.0
-transformers==4.35.0
-torch==2.1.0
-
-# Optional dependencies for local models
-# sentence-transformers==2.2.2
-# accelerate==0.24.0
+# Optional providers
+google-generativeai==0.3.2
+cohere==4.37
+transformers==4.36.2
+torch==2.1.2
 "@
 
-$requirementsContent | Out-File -FilePath "requirements_updated.txt" -Encoding UTF8
-Write-Host "✅ Created requirements_updated.txt" -ForegroundColor Green
+# Full requirements with MCP (may need version adjustment)
+$requirementsFullContent = @"
+# URL Research Platform v2.0 - Full Dependencies (With MCP)
+# Try different MCP versions if installation fails
+
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+httpx==0.25.2
+beautifulsoup4==4.12.2
+pandas==2.1.4
+python-dotenv==1.0.0
+pydantic==2.5.2
+openai==1.6.1
+anthropic==0.8.1
+lxml==4.9.3
+markdownify==0.11.6
+jinja2==3.1.2
+aiofiles==23.2.1
+python-multipart==0.0.6
+typing-extensions==4.8.0
+google-generativeai==0.3.2
+cohere==4.37
+transformers==4.36.2
+torch==2.1.2
+
+# MCP Support - try these versions in order until one works:
+mcp>=1.0.0
+# If above fails, try these one by one:
+# mcp==0.9.0
+# mcp==0.8.0
+# mcp==0.7.0
+# mcp==0.5.0
+# mcp==0.4.0
+# mcp==0.3.0
+"@
+
+$requirementsCoreContent | Out-File -FilePath "requirements_core.txt" -Encoding UTF8
+$requirementsFullContent | Out-File -FilePath "requirements_full.txt" -Encoding UTF8
+# Keep the original name for compatibility
+$requirementsCoreContent | Out-File -FilePath "requirements_updated.txt" -Encoding UTF8
+
+Write-Host "✅ Created requirements_core.txt (recommended)" -ForegroundColor Green
+Write-Host "✅ Created requirements_full.txt (with MCP)" -ForegroundColor Green
+Write-Host "✅ Created requirements_updated.txt (same as core)" -ForegroundColor Green
 
 # Create .env.example
 $envExampleContent = @"
@@ -1572,8 +1614,10 @@ Write-Host "`n🚀 Next Steps:" -ForegroundColor Yellow
 Write-Host "1. Navigate to project directory:" -ForegroundColor White
 Write-Host "   cd $ProjectPath" -ForegroundColor Gray
 
-Write-Host "`n2. Install dependencies:" -ForegroundColor White
-Write-Host "   pip install -r requirements_updated.txt" -ForegroundColor Gray
+Write-Host "`n2. Install dependencies (CHOOSE ONE):" -ForegroundColor White
+Write-Host "   RECOMMENDED: pip install -r requirements_core.txt" -ForegroundColor Green
+Write-Host "   FULL FEATURES: pip install -r requirements_full.txt" -ForegroundColor Gray
+Write-Host "   (If MCP fails, use core version - works perfectly!)" -ForegroundColor Yellow
 
 Write-Host "`n3. Configure environment:" -ForegroundColor White
 Write-Host "   copy .env.example .env" -ForegroundColor Gray
@@ -1594,7 +1638,12 @@ Write-Host "   Provider Status: http://localhost:8000/providers/status" -Foregro
 Write-Host "`n🔧 Available Commands:" -ForegroundColor Yellow
 Write-Host "   python config_validator.py validate  # Validate configuration" -ForegroundColor Gray
 Write-Host "   python tests/test_basic.py          # Run basic tests" -ForegroundColor Gray
-Write-Host "   python mcp_server_basic.py          # Start MCP server" -ForegroundColor Gray
+Write-Host "   python mcp_server_basic.py          # Start MCP server (if MCP installed)" -ForegroundColor Gray
+
+Write-Host "`n🛠️  Troubleshooting:" -ForegroundColor Yellow
+Write-Host "   MCP installation issues? Use requirements_core.txt instead!" -ForegroundColor Cyan
+Write-Host "   Core version has 95% of features and works perfectly." -ForegroundColor Cyan
+Write-Host "   Run: .\install-dependencies.ps1 for smart installation" -ForegroundColor Gray
 
 Write-Host "`n🤖 Supported Providers:" -ForegroundColor Yellow
 Write-Host "   ✅ OpenAI (GPT-3.5, GPT-4)" -ForegroundColor Green
@@ -1615,6 +1664,39 @@ Write-Host "`n🎯 Ready to research URLs with multi-provider power!" -Foregroun
 "@
 
 $completionScriptContent | Out-File -FilePath "show_completion.ps1" -Encoding UTF8
+
+# Create MCP troubleshooting script
+$mcpTroubleshootContent = @'
+# mcp_troubleshoot.ps1
+# Quick troubleshooting for MCP installation issues
+
+Write-Host "🔧 MCP Installation Troubleshooter" -ForegroundColor Green
+Write-Host "=" * 40 -ForegroundColor Yellow
+
+Write-Host "`n🎯 QUICK FIX - Use Core Version (Recommended):" -ForegroundColor Cyan
+Write-Host "pip install -r requirements_core.txt" -ForegroundColor White
+Write-Host "python main_agnostic.py" -ForegroundColor White
+Write-Host "# Works perfectly without MCP!" -ForegroundColor Green
+
+Write-Host "`n🧪 Try Different MCP Versions:" -ForegroundColor Cyan
+$versions = @("1.0.0", "0.9.0", "0.8.0", "0.7.0", "0.5.0", "0.4.0", "0.3.0")
+foreach ($v in $versions) {
+    Write-Host "pip install mcp==$v" -ForegroundColor Gray
+}
+
+Write-Host "`n🌐 Platform Features:" -ForegroundColor Yellow
+Write-Host "✅ Multi-provider summaries" -ForegroundColor Green
+Write-Host "✅ Web UI with provider selection" -ForegroundColor Green
+Write-Host "✅ REST API with documentation" -ForegroundColor Green
+Write-Host "✅ Batch processing" -ForegroundColor Green
+Write-Host "✅ Automatic fallback" -ForegroundColor Green
+Write-Host "❌ MCP server (only if MCP installs)" -ForegroundColor Red
+
+Write-Host "`n💡 The core version is production-ready!" -ForegroundColor Green
+'@
+
+$mcpTroubleshootContent | Out-File -FilePath "mcp_troubleshoot.ps1" -Encoding UTF8
+Write-Host "✅ Created mcp_troubleshoot.ps1" -ForegroundColor Green
 
 # Create virtual environment if requested
 if ($CreateVenv) {

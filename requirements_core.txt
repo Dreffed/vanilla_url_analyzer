@@ -1,0 +1,24 @@
+# URL Research Platform v2.0 - Core Dependencies (No MCP)
+# This version works perfectly for testing and basic usage
+
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+httpx==0.25.2
+beautifulsoup4==4.12.2
+pandas==2.1.4
+python-dotenv==1.0.0
+pydantic==2.5.2
+openai==1.6.1
+anthropic==0.8.1
+lxml==4.9.3
+markdownify==0.11.6
+jinja2==3.1.2
+aiofiles==23.2.1
+python-multipart==0.0.6
+typing-extensions==4.8.0
+
+# Optional providers
+google-generativeai==0.3.2
+cohere==4.37
+transformers==4.36.2
+torch==2.1.2

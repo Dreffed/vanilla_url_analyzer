@@ -5,34 +5,28 @@ A comprehensive Python-based platform for analyzing URLs with **multi-provider L
 ## 🚀 Quick Start
 
 ### 1. Setup Environment
-
-```bash
+`ash
 # Install dependencies
-pip install -r requirements.txt
+pip install -r requirements_updated.txt
 
 # Copy and configure environment
 copy .env.example .env
-
 # Edit .env with your API keys
+
 # Validate configuration
-
 python config_validator.py validate
-```
-
+`
 
 ### 2. Start the Server
-
-```bash
+`ash
 # Development server
 uvicorn main_agnostic:app --reload
 
 # Production server
-2-5-10 Warrantr
 uvicorn main_agnostic:app --host 0.0.0.0 --port 8000
-```
+`
 
 ### 3. Access the Platform
-
 - **Web UI**: http://localhost:8000
 - **API Docs**: http://localhost:8000/docs
 - **Provider Status**: http://localhost:8000/providers/status
@@ -50,8 +44,7 @@ uvicorn main_agnostic:app --host 0.0.0.0 --port 8000
 ## 🔧 Configuration
 
 ### Environment Variables
-
-```bash
+`ash
 # OpenAI
 OPENAI_API_KEY=your_key_here
 OPENAI_MODEL=gpt-3.5-turbo
@@ -67,24 +60,21 @@ OLLAMA_ENABLED=true
 OLLAMA_BASE_URL=http://localhost:11434
 OLLAMA_MODEL=llama2
 OLLAMA_PRIORITY=30
-```
+`
 
 ### Priority System
-
 Lower numbers = higher priority. The system tries providers in priority order with automatic fallback.
 
 ## 🌐 Usage Examples
 
 ### Web Interface
-
 1. Enter URLs (JSON or line-separated)
 2. Select provider (or use auto-fallback)
 3. Configure summary settings
 4. View results with provider information
 
 ### API Usage
-
-```python
+`python
 import httpx
 
 # Process URLs with specific provider
@@ -93,16 +83,16 @@ response = await httpx.post("http://localhost:8000/process-urls", json={
     "provider": "anthropic",
     "max_length": 150
 })
-```
+`
 
 ### Docker Deployment
-
-```bash
+`ash
 # Start all services
 docker-compose up -d
+
 # View logs
 docker-compose logs -f
-```
+`
 
 ## 🔍 Features
 
@@ -126,8 +116,7 @@ docker-compose logs -f
 ## 🛠️ Development
 
 ### Project Structure
-
-```markdown
+`
 url-research-platform-v2/
 ├── main_agnostic.py          # Core application
 ├── summary_providers.py      # Provider implementations
@@ -136,10 +125,9 @@ url-research-platform-v2/
 ├── .env.example             # Environment template
 ├── docker-compose.yml       # Container orchestration
 └── docs/                    # Documentation
-```
+`
 
 ### Adding New Providers
-
 1. Implement BaseSummaryProvider interface
 2. Add to SummaryProviderFactory
 3. Update configuration validation
@@ -148,14 +136,12 @@ url-research-platform-v2/
 ## 📈 Monitoring
 
 ### Provider Status
-
-```bash
+`ash
 # Check provider availability
 curl http://localhost:8000/providers/status
-```
+`
 
 ### Performance Metrics
-
 - Response times per provider
 - Token usage tracking
 - Error rates and fallback statistics
@@ -164,16 +150,14 @@ curl http://localhost:8000/providers/status
 ## 🔧 Troubleshooting
 
 ### Common Issues
-
 - **Provider not available**: Check API keys and configuration
 - **Slow performance**: Adjust concurrency settings or use faster providers
 - **High costs**: Enable local providers (Ollama) for bulk processing
 
 ### Configuration Validation
-
-```bash
+`ash
 python config_validator.py validate
-```
+`
 
 ## 🤝 Contributing
 
@@ -187,4 +171,5 @@ python config_validator.py validate
 MIT License - see LICENSE file for details.
 
 ---
+
 **Ready to research URLs with multi-provider power?** 🚀

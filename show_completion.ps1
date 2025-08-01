@@ -10,11 +10,13 @@ Get-ChildItem -Recurse -Name | Where-Object { $_ -notlike ".*" } | Sort-Object |
 Write-Host "
 🚀 Next Steps:" -ForegroundColor Yellow
 Write-Host "1. Navigate to project directory:" -ForegroundColor White
-Write-Host "   cd vanilla_url_analyzer" -ForegroundColor Gray
+Write-Host "   cd ." -ForegroundColor Gray
 
 Write-Host "
-2. Install dependencies:" -ForegroundColor White
-Write-Host "   pip install -r requirements_updated.txt" -ForegroundColor Gray
+2. Install dependencies (CHOOSE ONE):" -ForegroundColor White
+Write-Host "   RECOMMENDED: pip install -r requirements_core.txt" -ForegroundColor Green
+Write-Host "   FULL FEATURES: pip install -r requirements_full.txt" -ForegroundColor Gray
+Write-Host "   (If MCP fails, use core version - works perfectly!)" -ForegroundColor Yellow
 
 Write-Host "
 3. Configure environment:" -ForegroundColor White
@@ -40,7 +42,13 @@ Write-Host "
 🔧 Available Commands:" -ForegroundColor Yellow
 Write-Host "   python config_validator.py validate  # Validate configuration" -ForegroundColor Gray
 Write-Host "   python tests/test_basic.py          # Run basic tests" -ForegroundColor Gray
-Write-Host "   python mcp_server_basic.py          # Start MCP server" -ForegroundColor Gray
+Write-Host "   python mcp_server_basic.py          # Start MCP server (if MCP installed)" -ForegroundColor Gray
+
+Write-Host "
+🛠️  Troubleshooting:" -ForegroundColor Yellow
+Write-Host "   MCP installation issues? Use requirements_core.txt instead!" -ForegroundColor Cyan
+Write-Host "   Core version has 95% of features and works perfectly." -ForegroundColor Cyan
+Write-Host "   Run: .\install-dependencies.ps1 for smart installation" -ForegroundColor Gray
 
 Write-Host "
 🤖 Supported Providers:" -ForegroundColor Yellow

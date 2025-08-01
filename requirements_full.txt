@@ -1,0 +1,32 @@
+# URL Research Platform v2.0 - Full Dependencies (With MCP)
+# Try different MCP versions if installation fails
+
+fastapi
+uvicorn[standard]
+httpx
+beautifulsoup4
+pandas
+python-dotenv
+pydantic
+openai
+anthropic
+lxml
+markdownify
+jinja2
+aiofiles
+python-multipart
+typing-extensions
+google-generativeai
+cohere
+transformers
+torch
+
+# MCP Support - try these versions in order until one works:
+mcp
+# If above fails, try these one by one:
+# mcp==0.9.0
+# mcp==0.8.0
+# mcp==0.7.0
+# mcp==0.5.0
+# mcp==0.4.0
+# mcp==0.3.0
